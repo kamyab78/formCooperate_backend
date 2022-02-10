@@ -9,9 +9,18 @@ import ir.bourna.form.Entities.ProjectEntity;
 import ir.bourna.form.Services.PartnerService;
 import ir.bourna.form.Services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -67,8 +76,9 @@ public class AdminController {
     }
 
     //--------GET USER DATA EXCEL----------
-    @GetMapping("/downloadFile")
-    public void exportToExcel(@RequestParam int partnerId) { {
+    @GetMapping("/create")
+    public void exportToExcel(@RequestParam int partnerId) {
+        {
             ExportPartnersTable excelExporter = new ExportPartnersTable();
             try {
                 excelExporter.export(partnerId);
@@ -76,5 +86,21 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<Resource> getFile() throws IOException {
+        String file = "E:\\projects\\irform\\partnerscompany-export1644506750.xlsx";
+        Path path = Paths.get(file);
+        String filename ="hellllo";
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(resource);
     }
 }
