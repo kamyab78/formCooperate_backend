@@ -11,6 +11,10 @@ public class InstituteEntity {
     private int id;
     @Column(name = "partnerid")
     private int partnerid;
+    @Column(name = "projectid")
+    private int projectid;
+    @Column(name = "projectname")
+    private String  projectname;
     @Column(name = "name")
     private String name;
     @Column(name = "lastname")
@@ -106,5 +110,21 @@ public class InstituteEntity {
 
     public void setHourdes(String hourdes) {
         this.hourdes = hourdes;
+    }
+
+    public int getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(int projectid) {
+        this.projectid = projectid;
+    }
+
+    public String getProjectname() {
+        return projectname;
+    }
+
+    public void setProjectname(String projectname) {
+        this.projectname = projectname;
     }
 }

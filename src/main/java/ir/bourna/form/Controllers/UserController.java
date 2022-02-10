@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {
@@ -20,17 +22,20 @@ public class UserController {
     CompanyService companyService;
     @Autowired
     InstituteService instituteService;
-
+    @GetMapping("/projectlist")
+    private List<ProjectEntity> projectlist(@RequestParam int partnerId) {
+        return projectService.projectlist(partnerId);
+    }
     @GetMapping("/projectdetail")
     private ResponseEntity<ProjectEntity> getProjectDetailUser(@RequestParam int partnerId,@RequestParam int projectId) {
         return projectService.getProjectDetailUser(partnerId,projectId);
     }
     @PostMapping("/instituteuser")
-    private BaseResponseDTO addInstituteUser(@RequestParam int partnerId, @RequestBody InstituteRequestDto instituteRequestDto) {
-        return instituteService.addInstitiuteUser(partnerId,instituteRequestDto);
+    private BaseResponseDTO addInstituteUser(@RequestParam int partnerId,@RequestParam int projectid, @RequestBody InstituteRequestDto instituteRequestDto) {
+        return instituteService.addInstitiuteUser(partnerId,instituteRequestDto,projectid);
     }
     @PostMapping("/companyuser")
-    private BaseResponseDTO addCompanyUser(@RequestParam int partnerId, @RequestBody CompanyRequestDto companyRequestDto) {
-        return companyService.addCompanyUser(partnerId,companyRequestDto);
+    private BaseResponseDTO addCompanyUser(@RequestParam int partnerId,@RequestParam int projectid,  @RequestBody CompanyRequestDto companyRequestDto) {
+        return companyService.addCompanyUser(partnerId,companyRequestDto,projectid);
     }
 }

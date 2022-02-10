@@ -72,4 +72,10 @@ public class ProjectServiceImp implements ProjectService {
         ProjectEntity projectEntity = projectRepository.findByIdAndPartnerid(projectId,partnerId);
         return ResponseEntity.ok(projectEntity);
     }
+
+    @Override
+    public List<ProjectEntity> projectlist(int partnerId) {
+        List<ProjectEntity> projectList= projectRepository.findAllByPartnerid(partnerId);
+        return projectList;
+    }
 }

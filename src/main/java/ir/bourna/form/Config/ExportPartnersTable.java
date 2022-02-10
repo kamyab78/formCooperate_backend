@@ -17,11 +17,11 @@ public class ExportPartnersTable {
 
 
     public void export(int partnerId) throws IOException {
-        String jdbcURL = "jdbc:mysql://localhost:3306/announcementsDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
-        String username = "admin";
-        String password = "admin";
-
-        String excelFilePath = "partnersinstitute-export" + Instant.now().getEpochSecond() + ".xlsx";
+//        String jdbcURL = "jdbc:mysql://localhost:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
+        String jdbcURL = "jdbc:mysql://79.175.177.58:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
+        String username = "bourna";
+        String password = "Bourn@1234";
+        String excelFilePath = "/opt/partnersinstitute-export" + Instant.now().getEpochSecond() + ".xlsx";
         String excelFilePathcmp = "partnerscompany-export" + Instant.now().getEpochSecond() + ".xlsx";
         File file = new File(excelFilePath);
         if (file.createNewFile()) {
@@ -35,8 +35,8 @@ public class ExportPartnersTable {
 
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
 
-            String sqlinstitiue = "SELECT * FROM instituteentity ";
-            String sqlcompany = "SELECT * FROM companyentity";
+            String sqlinstitiue = "SELECT * FROM instituteentity WHERE partnerid="+partnerId+";";
+            String sqlcompany = "SELECT * FROM companyentity WHERE partnerid="+partnerId+";";
 
             Statement statement = connection.createStatement();
             Statement statementcmp = connection.createStatement();
@@ -75,41 +75,53 @@ public class ExportPartnersTable {
 
 
     private void writeHeaderLine1(XSSFSheet sheetcmp) {
+
         Row headerRow = sheetcmp.createRow(0);
         Cell headerCell = headerRow.createCell(0);
-        headerCell.setCellValue("name");
+        headerCell.setCellValue("id");
         headerCell = headerRow.createCell(1);
-        headerCell.setCellValue("phone");
+        headerCell.setCellValue("name");
         headerCell = headerRow.createCell(2);
-        headerCell.setCellValue("email");
+        headerCell.setCellValue("phone");
         headerCell = headerRow.createCell(3);
-        headerCell.setCellValue("work_experiences");
+        headerCell.setCellValue("email");
         headerCell = headerRow.createCell(4);
-        headerCell.setCellValue("support_descriptions");
+        headerCell.setCellValue("work_experiences");
         headerCell = headerRow.createCell(5);
-        headerCell.setCellValue("hour_description");
+        headerCell.setCellValue("support_descriptions");
+        headerCell = headerRow.createCell(6);
+        headerCell.setCellValue("projectname");
+        headerCell = headerRow.createCell(7);
+        headerCell.setCellValue("work_experiences_description");
+
+
+
     }
 
 
     private void writeHeaderLine(XSSFSheet sheet) {
         Row headerRow = sheet.createRow(0);
-
         Cell headerCell = headerRow.createCell(0);
-        headerCell.setCellValue("name");
+        headerCell.setCellValue("id");
         headerCell = headerRow.createCell(1);
-        headerCell.setCellValue("lastname");
+        headerCell.setCellValue("name");
         headerCell = headerRow.createCell(2);
-        headerCell.setCellValue("phone");
+        headerCell.setCellValue("lastname");
         headerCell = headerRow.createCell(3);
-        headerCell.setCellValue("email");
+        headerCell.setCellValue("phone");
         headerCell = headerRow.createCell(4);
-        headerCell.setCellValue("degree");
+        headerCell.setCellValue("email");
         headerCell = headerRow.createCell(5);
-        headerCell.setCellValue("work_experiences");
+        headerCell.setCellValue("degree");
         headerCell = headerRow.createCell(6);
-        headerCell.setCellValue("support_descriptions");
+        headerCell.setCellValue("work_experiences");
         headerCell = headerRow.createCell(7);
-        headerCell.setCellValue("hour_description");
+        headerCell.setCellValue("support_descriptions");
+        headerCell = headerRow.createCell(8);
+        headerCell.setCellValue("projectname");
+        headerCell = headerRow.createCell(9);
+        headerCell.setCellValue("work_experiences_description");
+
 
     }
 
@@ -125,6 +137,7 @@ public class ExportPartnersTable {
             String degree = result.getString("degree");
             String workexp = result.getString("workexp");
             String supportdes = result.getString("supportdes");
+            String projectname = result.getString("projectname");
             String hourdes = result.getString("hourdes");
             Row row = sheet.createRow(rowCount++);
 
@@ -154,6 +167,11 @@ public class ExportPartnersTable {
             cell = row.createCell(columnCount++);
             cell.setCellValue(supportdes);
 
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(projectname);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(hourdes);
 
         }
     }
@@ -166,6 +184,7 @@ public class ExportPartnersTable {
             String email = resultcmp.getString("email");
             String workexp = resultcmp.getString("workexp");
             String supportdes = resultcmp.getString("supportdes");
+            String projectname = resultcmp.getString("projectname");
             String hourdes = resultcmp.getString("hourdes");
             Row row = sheetcmp.createRow(rowCount++);
             int columnCount = 0;
@@ -186,7 +205,11 @@ public class ExportPartnersTable {
             cell = row.createCell(columnCount++);
             cell.setCellValue(supportdes);
 
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(projectname);
 
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(hourdes);
         }
     }
 

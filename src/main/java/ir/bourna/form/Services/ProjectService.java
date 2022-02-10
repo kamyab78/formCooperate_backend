@@ -20,4 +20,6 @@ public interface ProjectService {
     BaseResponseDTO changestateproject(int partnerId);
 
     ResponseEntity<ProjectEntity> getProjectDetailUser(int partnerId, int projectId);
+
+    List<ProjectEntity> projectlist(int partnerId);
 }

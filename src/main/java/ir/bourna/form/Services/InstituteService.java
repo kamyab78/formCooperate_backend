@@ -6,5 +6,5 @@ import ir.bourna.form.Dtos.InstituteRequestDto;
 
 public interface InstituteService {
 
-    BaseResponseDTO addInstitiuteUser(int partnerId, InstituteRequestDto instituteRequestDto);
+    BaseResponseDTO addInstitiuteUser(int partnerId, InstituteRequestDto instituteRequestDto, int projectid);
 }
