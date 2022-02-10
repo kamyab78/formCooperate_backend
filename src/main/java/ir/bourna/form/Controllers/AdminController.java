@@ -90,9 +90,9 @@ public class AdminController {
 
     @GetMapping("/download")
     public ResponseEntity<Resource> getFile() throws IOException {
-        String file = "E:\\projects\\irform\\partnerscompany-export1644506750.xlsx";
+        String file = "E:\\projects\\irform\\partnersinstitute-export.xlsx";
         Path path = Paths.get(file);
-        String filename ="hellllo";
+        String filename ="hellllo.xlsx";
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

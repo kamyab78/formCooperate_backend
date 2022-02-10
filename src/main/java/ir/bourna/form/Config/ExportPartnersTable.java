@@ -21,17 +21,10 @@ public class ExportPartnersTable {
         String jdbcURL = "jdbc:mysql://79.175.177.58:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
         String username = "bourna";
         String password = "Bourn@1234";
-        String excelFilePath = "/opt/partnersinstitute-export" + Instant.now().getEpochSecond() + ".xlsx";
-        String excelFilePathcmp = "partnerscompany-export" + Instant.now().getEpochSecond() + ".xlsx";
+        String excelFilePath = "partnersinstitute-export"+ ".xlsx";
+        String excelFilePathcmp = "partnerscompany-export" + ".xlsx";
         File file = new File(excelFilePath);
-        if (file.createNewFile()) {
-            System.out.println(excelFilePath + " File Created");
-        } else System.out.println("File " + excelFilePath + " already exists");
-
         File file1 = new File(excelFilePathcmp);
-        if (file1.createNewFile()) {
-            System.out.println(excelFilePathcmp + " File Created");
-        } else System.out.println("File " + excelFilePathcmp + " already exists");
 
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
 
