@@ -88,11 +88,26 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/download")
+    @GetMapping("/downloadUserData")
     public ResponseEntity<Resource> getFile() throws IOException {
-        String file = "E:\\projects\\irform\\partnersinstitute-export.xlsx";
+        String file = "partnersinstitute-export.xlsx";
         Path path = Paths.get(file);
-        String filename ="hellllo.xlsx";
+        String filename ="user.xlsx";
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                .body(resource);
+    }
+    @GetMapping("/downloadCompanyData")
+    public ResponseEntity<Resource> getFileCompany() throws IOException {
+        String file = "partnerscompany-export.xlsx";
+        Path path = Paths.get(file);
+        String filename ="company.xlsx";
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

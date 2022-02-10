@@ -17,8 +17,8 @@ public class ExportPartnersTable {
 
 
     public void export(int partnerId) throws IOException {
-//        String jdbcURL = "jdbc:mysql://localhost:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
-        String jdbcURL = "jdbc:mysql://79.175.177.58:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
+        String jdbcURL = "jdbc:mysql://localhost:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
+//        String jdbcURL = "jdbc:mysql://79.175.177.58:3306/formDB?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8";
         String username = "bourna";
         String password = "Bourn@1234";
         String excelFilePath = "partnersinstitute-export"+ ".xlsx";
