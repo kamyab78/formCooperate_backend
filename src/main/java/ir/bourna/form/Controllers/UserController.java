@@ -3,6 +3,7 @@ package ir.bourna.form.Controllers;
 import ir.bourna.form.Dtos.BaseResponseDTO;
 import ir.bourna.form.Dtos.CompanyRequestDto;
 import ir.bourna.form.Dtos.InstituteRequestDto;
+import ir.bourna.form.Dtos.SendemailticketRequestDTO;
 import ir.bourna.form.Entities.ProjectEntity;
 import ir.bourna.form.Services.CompanyService;
 import ir.bourna.form.Services.InstituteService;
@@ -37,5 +38,9 @@ public class UserController {
     @PostMapping("/companyuser")
     private BaseResponseDTO addCompanyUser(@RequestParam int partnerId,@RequestParam int projectid,  @RequestBody CompanyRequestDto companyRequestDto) {
         return companyService.addCompanyUser(partnerId,companyRequestDto,projectid);
+    }
+    @PostMapping("/sendmail")
+    private BaseResponseDTO sendmail(@RequestBody SendemailticketRequestDTO sendemailticketRequestDTO) {
+        return companyService.sendmail(sendemailticketRequestDTO);
     }
 }
